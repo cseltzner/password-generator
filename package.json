@@ -23,9 +23,15 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
+    "plugins": [
+      "jest-dom",
+      "testing-library"
+    ],
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:jest-dom/recommended",
+      "plugin:testing-library/react"
     ]
   },
   "browserslist": {
@@ -42,6 +48,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.12",
+    "eslint-plugin-jest-dom": "^4.0.2",
+    "eslint-plugin-testing-library": "^5.7.0",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
   }
