@@ -15,6 +15,16 @@ describe("passwordGenerator()", () => {
     }).toThrow();
   });
 
+  test("throws error if length is less than 4", () => {
+    const options: PwOptions = {
+      length: 3,
+    };
+
+    expect(() => {
+      generatePassword(options);
+    }).toThrow();
+  });
+
   test("throws error if length is negative", () => {
     const options: PwOptions = {
       length: -1,
@@ -28,7 +38,7 @@ describe("passwordGenerator()", () => {
   test("returns a string of default length if no options are passed", () => {
     const password = generatePassword();
 
-    expect(password).toBeInstanceOf("string");
+    expect(typeof password).toBe("string");
     expect(password).toHaveLength(DEFAULT_PW_LENGTH);
   });
 
@@ -94,7 +104,7 @@ describe("passwordGenerator()", () => {
     const password = generatePassword(options);
 
     const allOptionRegex = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])S{" +
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()+-])\\S{" +
         DEFAULT_PW_LENGTH +
         "}$"
     );
