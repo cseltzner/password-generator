@@ -2,7 +2,7 @@ import {
   DEFAULT_PW_LENGTH,
   generatePassword,
   PwOptions,
-} from "../passwordGenerator";
+} from "../generatePassword";
 
 describe("passwordGenerator()", () => {
   test("throws error if length is 0", () => {
