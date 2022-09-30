@@ -17,7 +17,7 @@ describe("Password Generator", () => {
     expect(password).toBeInTheDocument();
 
     const pwCopyBtn = screen.getByRole("button", {
-      description: /copy password/i,
+      description: /copy to clipboard/i,
     });
     expect(pwCopyBtn).toBeInTheDocument();
 
@@ -98,5 +98,30 @@ describe("Password Generator", () => {
     const password2 = screen.getByText(defaultPwRegex);
     expect(password2).toBeInTheDocument();
     expect(password2).not.toEqual(password1);
+  });
+
+  test("copies password to clipboard when copy button is clicked", () => {
+    jest.spyOn(navigator.clipboard, "writeText");
+
+    const copyBtn = screen.getByRole("button", {
+      description: /copy to clipboard/i,
+    });
+
+    userEvent.click(copyBtn);
+
+    expect(navigator.clipboard.writeText).toHaveBeenCalled();
+  });
+
+  test("copies password to clipboard when password is clicked", () => {
+    jest.spyOn(navigator.clipboard, "writeText");
+
+    const defaultPwRegex = new RegExp(
+      "^[^!@#$%^&*()-+\\s]{" + DEFAULT_PW_LENGTH + "}$"
+    );
+    const password = screen.getByText(defaultPwRegex);
+
+    userEvent.click(password);
+
+    expect(navigator.clipboard.writeText).toHaveBeenCalled();
   });
 });
