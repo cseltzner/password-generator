@@ -1,6 +1,6 @@
 # Password Generator
 
-[View site](http://143.110.236.194:4000/)
+[View site](https://cseltzner.github.io/password-generator/)
 
 A simple password generator used primarily to practice test driven development on a simple react project with React Testing Library.
 
