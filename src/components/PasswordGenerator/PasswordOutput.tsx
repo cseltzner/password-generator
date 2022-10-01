@@ -2,12 +2,13 @@ import React from "react";
 
 interface Props {
   password: string;
+  setAlert: (msg: string, timeout: number) => void;
 }
 
-const PasswordOutput = ({ password }: Props) => {
+const PasswordOutput = ({ password, setAlert }: Props) => {
   const onCopyClicked = () => {
     navigator.clipboard.writeText(password);
-    // todo add alert/popup
+    setAlert("Password copied!", 3000);
   };
 
   return (
