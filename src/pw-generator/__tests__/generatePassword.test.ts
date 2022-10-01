@@ -104,7 +104,7 @@ describe("passwordGenerator()", () => {
     const password = generatePassword(options);
 
     const allOptionRegex = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()+-])\\S{" +
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\\+-])\\S{" +
         DEFAULT_PW_LENGTH +
         "}$"
     );
