@@ -48,19 +48,23 @@ describe("Password Generator", () => {
     const defaultPwRegex = new RegExp(
       "^[^!@#$%^&*()-+\\s]{" + DEFAULT_PW_LENGTH + "}$"
     );
-    const password1 = screen.getByText(defaultPwRegex);
-    expect(password1).toBeInTheDocument();
+    const password1El = screen.getByText(defaultPwRegex);
+    expect(password1El).toBeInTheDocument();
+
+    const password1 = password1El.textContent;
 
     await user.click(generatePwBtn);
 
     // Check that password is still correct, and is different than original password
     // Technically there is a really small amount of flakyness due to the small chance PWs can randomly be the same
-    const password2 = await screen.findByText(defaultPwRegex);
-    expect(password2).toBeInTheDocument();
+    const password2El = await screen.findByText(defaultPwRegex);
+    expect(password2El).toBeInTheDocument();
+
+    const password2 = password2El.textContent;
     expect(password2).not.toEqual(password1);
   });
 
-  test("checking all buttons, sliding slider, and generating password generates a correct password", () => {
+  test("checking all buttons, sliding slider, and generating password generates a correct password", async () => {
     render(<PasswordGenerator />);
 
     const newPwLength = 15;
@@ -71,12 +75,13 @@ describe("Password Generator", () => {
     const defaultPwRegex = new RegExp(
       "^[^!@#$%^&*()-+\\s]{" + DEFAULT_PW_LENGTH + "}$"
     );
-    const password1 = screen.getByText(defaultPwRegex);
-    expect(password1).toBeInTheDocument();
+    const password1El = screen.getByText(defaultPwRegex);
+    expect(password1El).toBeInTheDocument();
+    const password1 = password1El.textContent;
 
     fireEvent.change(slider, { target: { value: newPwLength } });
-    userEvent.click(checkboxes[checkboxes.length - 1]); // Check last checkbox on
-    userEvent.click(generatePwBtn);
+    await userEvent.click(checkboxes[checkboxes.length - 1]); // Check last checkbox on
+    await userEvent.click(generatePwBtn);
 
     const newPwRegex = new RegExp(
       "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()+-])\\S{" +
@@ -84,12 +89,13 @@ describe("Password Generator", () => {
         "}$"
     );
 
-    const password2 = screen.getByText(newPwRegex);
-    expect(password2).toBeInTheDocument();
+    const password2El = await screen.findByText(newPwRegex);
+    expect(password2El).toBeInTheDocument();
+    const password2 = password2El.textContent;
     expect(password2).not.toEqual(password1);
   });
 
-  test("can generate two passwords in a row", () => {
+  test("can generate two passwords in a row", async () => {
     render(<PasswordGenerator />);
 
     const generatePwBtn = screen.getByRole("button", { name: /Generate/i });
@@ -97,18 +103,20 @@ describe("Password Generator", () => {
     const defaultPwRegex = new RegExp(
       "^[^!@#$%^&*()-+\\s]{" + DEFAULT_PW_LENGTH + "}$"
     );
-    const password1 = screen.getByText(defaultPwRegex);
-    expect(password1).toBeInTheDocument();
+    const password1El = screen.getByText(defaultPwRegex);
+    expect(password1El).toBeInTheDocument();
+    const password1 = password1El.textContent;
 
-    userEvent.click(generatePwBtn);
-    userEvent.click(generatePwBtn);
+    await userEvent.click(generatePwBtn);
+    await userEvent.click(generatePwBtn);
 
-    const password2 = screen.getByText(defaultPwRegex);
-    expect(password2).toBeInTheDocument();
+    const password2El = await screen.findByText(defaultPwRegex);
+    expect(password2El).toBeInTheDocument();
+    const password2 = password2El.textContent;
     expect(password2).not.toEqual(password1);
   });
 
-  test("copies password to clipboard when copy button is clicked", () => {
+  test("copies password to clipboard when copy button is clicked", async () => {
     render(<PasswordGenerator />);
 
     jest.spyOn(navigator.clipboard, "writeText");
@@ -119,10 +127,12 @@ describe("Password Generator", () => {
 
     userEvent.click(copyBtn);
 
-    expect(navigator.clipboard.writeText).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(navigator.clipboard.writeText).toHaveBeenCalled();
+    });
   });
 
-  test("copies password to clipboard when password is clicked", () => {
+  test("copies password to clipboard when password is clicked", async () => {
     render(<PasswordGenerator />);
 
     jest.spyOn(navigator.clipboard, "writeText");
@@ -132,8 +142,10 @@ describe("Password Generator", () => {
     );
     const password = screen.getByText(defaultPwRegex);
 
-    userEvent.click(password);
+    await userEvent.click(password);
 
-    expect(navigator.clipboard.writeText).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(navigator.clipboard.writeText).toHaveBeenCalled();
+    });
   });
 });
