@@ -84,7 +84,7 @@ describe("Password Generator", () => {
     await userEvent.click(generatePwBtn);
 
     const newPwRegex = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()+-])\\S{" +
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\"'$%^&*()+-])\\S{" +
         newPwLength +
         "}$"
     );
@@ -147,5 +147,36 @@ describe("Password Generator", () => {
     await waitFor(() => {
       expect(navigator.clipboard.writeText).toHaveBeenCalled();
     });
+  });
+});
+
+describe("PasswordGenerator alerts", () => {
+  test("Alert is rendered on clicking password", async () => {
+    render(<PasswordGenerator />);
+
+    const defaultPwRegex = new RegExp(
+      "^[^!@#$%^&*()-+\\s]{" + DEFAULT_PW_LENGTH + "}$"
+    );
+    const password = screen.getByText(defaultPwRegex);
+
+    userEvent.click(password);
+
+    const alert = await screen.findByRole("alert");
+
+    await waitFor(() => expect(alert).toBeInTheDocument());
+  });
+
+  test("Alert is rendered on clicking copy button", async () => {
+    render(<PasswordGenerator />);
+
+    const pwCopyBtn = screen.getByRole("button", {
+      description: /copy to clipboard/i,
+    });
+
+    userEvent.click(pwCopyBtn);
+
+    const alert = await screen.findByRole("alert");
+
+    await waitFor(() => expect(alert).toBeInTheDocument());
   });
 });

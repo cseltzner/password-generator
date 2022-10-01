@@ -3,13 +3,12 @@ import Alert from "../Alert";
 
 test("renders correctly", () => {
   const msg = "test message";
-  render(<Alert msg={msg} />);
+  render(<Alert msg={msg} onRemove={() => {}} />);
 
-  const alertMessage = screen.getByRole("alert", { name: msg });
+  const alertMessage = screen.getByRole("alert");
   expect(alertMessage).toBeInTheDocument();
 
-  const removeButton = screen.getByRole("button", {
-    description: /remove alert/i,
-  });
+  const removeButton = screen.getByRole("button", {});
+
   expect(removeButton).toBeInTheDocument();
 });
