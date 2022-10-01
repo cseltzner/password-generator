@@ -68,7 +68,7 @@ const PasswordInput = ({ setPassword }: Props) => {
         max={15}
         value={length}
         onChange={(e) => onSliderChangeHandler(e)}
-        className="w-full accent-white mt-6 my-10 h-1  cursor-grab active:cursor-grabbing text-white bg-primary-mint rounded-full appearance-none"
+        className="w-full accent-white mt-6 my-10 h-1 hover:scale-y-[105%] cursor-grab active:cursor-grabbing text-white bg-primary-mint rounded-full appearance-none"
       />
 
       {/* Checkbox section */}
@@ -80,9 +80,12 @@ const PasswordInput = ({ setPassword }: Props) => {
             id="uppercase"
             checked={uppercase}
             onChange={(e) => setUppercase(e.target.checked)}
-            className="accent-primary-mint scale-125 border-none rounded-none"
+            className="cursor-pointer accent-primary-mint scale-125 border-none rounded-none"
           />
-          <label htmlFor="uppercase" className="tracking-tight select-none">
+          <label
+            htmlFor="uppercase"
+            className="cursor-pointer tracking-tight select-none"
+          >
             Include Uppercase Letters
           </label>
         </div>
@@ -93,9 +96,12 @@ const PasswordInput = ({ setPassword }: Props) => {
             id="numbers"
             checked={numbers}
             onChange={(e) => setNumbers(e.target.checked)}
-            className="accent-primary-mint scale-125 border-none rounded-none"
+            className="cursor-pointer accent-primary-mint scale-125 border-none rounded-none"
           />
-          <label htmlFor="numbers" className="tracking-tight select-none">
+          <label
+            htmlFor="numbers"
+            className="cursor-pointer tracking-tight select-none"
+          >
             Include Numbers
           </label>
         </div>
@@ -106,9 +112,12 @@ const PasswordInput = ({ setPassword }: Props) => {
             id="symbols"
             checked={symbols}
             onChange={(e) => setSymbols(e.target.checked)}
-            className="accent-primary-mint scale-125 border-none rounded-none"
+            className="cursor-pointer accent-primary-mint scale-125 border-none rounded-none"
           />
-          <label htmlFor="symbols" className="tracking-tight select-none">
+          <label
+            htmlFor="symbols"
+            className="cursor-pointer tracking-tight select-none"
+          >
             Include Symbols
           </label>
         </div>
