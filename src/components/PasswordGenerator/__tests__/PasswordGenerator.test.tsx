@@ -1,4 +1,4 @@
-import { screen, render, fireEvent } from "@testing-library/react";
+import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PasswordGenerator from "../PasswordGenerator";
 import { DEFAULT_PW_LENGTH } from "../../../pw-generator/generatePassword";
@@ -32,13 +32,17 @@ describe("Password Generator", () => {
   });
 
   test("first two checkboxes are checked", () => {
+    render(<PasswordGenerator />);
     const checkboxes = screen.getAllByRole("checkbox");
     expect(checkboxes[0]).toBeChecked();
     expect(checkboxes[1]).toBeChecked();
     expect(checkboxes[2]).not.toBeChecked();
   });
 
-  test("generating default password generates a password", () => {
+  test("generating default password generates a password", async () => {
+    const user = userEvent.setup();
+    render(<PasswordGenerator />);
+
     const generatePwBtn = screen.getByRole("button", { name: /Generate/i });
     // Check that password is rendered initially
     const defaultPwRegex = new RegExp(
@@ -47,16 +51,18 @@ describe("Password Generator", () => {
     const password1 = screen.getByText(defaultPwRegex);
     expect(password1).toBeInTheDocument();
 
-    userEvent.click(generatePwBtn);
+    await user.click(generatePwBtn);
 
     // Check that password is still correct, and is different than original password
     // Technically there is a really small amount of flakyness due to the small chance PWs can randomly be the same
-    const password2 = screen.getByText(defaultPwRegex);
+    const password2 = await screen.findByText(defaultPwRegex);
     expect(password2).toBeInTheDocument();
     expect(password2).not.toEqual(password1);
   });
 
   test("checking all buttons, sliding slider, and generating password generates a correct password", () => {
+    render(<PasswordGenerator />);
+
     const newPwLength = 15;
     const slider = screen.getByLabelText(/Character Length/);
     const checkboxes = screen.getAllByRole("checkbox");
@@ -84,6 +90,8 @@ describe("Password Generator", () => {
   });
 
   test("can generate two passwords in a row", () => {
+    render(<PasswordGenerator />);
+
     const generatePwBtn = screen.getByRole("button", { name: /Generate/i });
 
     const defaultPwRegex = new RegExp(
@@ -101,6 +109,8 @@ describe("Password Generator", () => {
   });
 
   test("copies password to clipboard when copy button is clicked", () => {
+    render(<PasswordGenerator />);
+
     jest.spyOn(navigator.clipboard, "writeText");
 
     const copyBtn = screen.getByRole("button", {
@@ -113,6 +123,8 @@ describe("Password Generator", () => {
   });
 
   test("copies password to clipboard when password is clicked", () => {
+    render(<PasswordGenerator />);
+
     jest.spyOn(navigator.clipboard, "writeText");
 
     const defaultPwRegex = new RegExp(
