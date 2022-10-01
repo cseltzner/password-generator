@@ -1,5 +1,7 @@
 # Password Generator
 
+[View site](http://143.110.236.194:4000/)
+
 A simple password generator used primarily to practice test driven development on a simple react project with React Testing Library.
 
 Design is based on Frontend Mentor's [Password generator](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh) app.
