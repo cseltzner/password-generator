@@ -1,6 +1,6 @@
 # Password Generator
 
-A simple password generator used primarily to practice test driven development on a simple react project.
+A simple password generator used primarily to practice test driven development on a simple react project with React Testing Library.
 
 Design is based on Frontend Mentor's [Password generator](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh) app.
 
