@@ -124,12 +124,13 @@ const PasswordInput = ({ setPassword }: Props) => {
       </fieldset>
 
       {/* Strength box */}
-      <div className="justify-between flex mt-8 items-center px-4 py-4 bg-surface-dark w-full">
+      <div className="justify-between flex mt-8 items-center gap-2 px-4 py-4 bg-surface-dark w-full">
         <p className="opacity-60 tracking-wide font-bold">STRENGTH</p>
         <div className="flex h-full gap-4">
           <p className="uppercase tracking-tight font-bold opacity-90">
             {strengthString}
           </p>
+          {/* Color boxes */}
           <div className="flex h-full gap-1">
             <div
               className={`${

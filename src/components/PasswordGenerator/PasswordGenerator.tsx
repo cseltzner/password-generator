@@ -24,7 +24,7 @@ const PasswordGenerator = () => {
   };
 
   return (
-    <div className=" w-[30rem] flex items-center justify-center flex-col gap-6">
+    <div className=" min-w-[20rem] sm:w-[30rem] flex items-center justify-center flex-col gap-6">
       <h1 className="opacity-80 text-xl">Password Generator</h1>
       <PasswordOutput password={password} setAlert={createAlert} />
       <PasswordInput setPassword={setPassword} />
